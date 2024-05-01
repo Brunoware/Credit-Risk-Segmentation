@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  jupyter:
+    build: .
+    image: creditrisk
+    container_name: creditscore
+    volumes:
+      - ./datasets:/app/datasets
+    env_file:
+      - ./.env_file
+    ports:
+      - "8888:8888"
+    command:
+      - /start
