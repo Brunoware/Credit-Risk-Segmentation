@@ -7,6 +7,7 @@ services:
     container_name: creditscore
     volumes:
       - ./datasets:/app/datasets
+      - ./libs:/app/libs
     env_file:
       - ./.env_file
     ports:
