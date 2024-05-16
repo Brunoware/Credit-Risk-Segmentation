@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as pd
+import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 
 class BusinessDecisionTreeClassifier(BaseEstimator, TransformerMixin):
@@ -130,4 +130,53 @@ class BusinessDecisionTreeClassifier(BaseEstimator, TransformerMixin):
                                (x[self.income_name] > 2600),
 
                  21: lambda x: (x[self.debt_name] > 9500) &\
-                               (x[self.liabilities_name] > 7000)}                              
+                               (x[self.liabilities_name] > 7000)}
+
+        # declare cluster
+        clusters = {0: lambda x: (x[self.node_name] == 1) |\
+                                 (x[self.node_name] == 3) |\
+                                 (x[self.node_name] == 6) |\
+                                 (x[self.node_name] == 9) |\
+                                 (x[self.node_name] == 12) |\
+                                 (x[self.node_name] == 15) |\
+                                 (x[self.node_name] == 18) |\
+                                 (x[self.node_name] == 21),
+
+                    1: lambda x: (x[self.node_name] == 2) |\
+                                 (x[self.node_name] == 4) |\
+                                 (x[self.node_name] == 5) |\
+                                 (x[self.node_name] == 7) |\
+                                 (x[self.node_name] == 8) |\
+                                 (x[self.node_name] == 10) |\
+                                 (x[self.node_name] == 11) |\
+                                 (x[self.node_name] == 13) |\
+                                 (x[self.node_name] == 14) |\
+                                 (x[self.node_name] == 16) |\
+                                 (x[self.node_name] == 17) |\
+                                 (x[self.node_name] == 19) |\
+                                 (x[self.node_name] == 20)}
+        
+        return nodes, clusters
+    
+    def fit(self, X, y = None):
+        return self
+    
+    def transform(self, X, y = None):
+        X = X.copy()
+
+        nodes, clusters = self.__create_segments()
+
+        X[self.node_name] = np.select([node(X) for node in nodes.values()],
+                                      list(nodes.keys()),
+                                      default = self.rare_node)\
+                              .astype('int16')
+        
+        X[self.cluster_name] = np.select([cluster(X) for cluster in clusters.values()],
+                                         list(clusters.keys()),
+                                         default = self.rare_cluster)\
+                                 .astype('int16')
+        
+        if self.get_nodes == False:
+            X.drop(columns = self.node_name, inplace = True)
+
+        return X
