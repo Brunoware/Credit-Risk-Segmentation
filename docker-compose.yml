@@ -9,6 +9,8 @@ services:
       - ./datasets:/app/datasets
       - ./libs:/app/libs
       - ./constants:/app/constants
+      - ./objects:/app/objects
+      - ./results:/app/results
     env_file:
       - ./.env_file
     ports:
