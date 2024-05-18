@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.metrics import roc_auc_score
 
 class BusinessDecisionTreeClassifier(BaseEstimator, TransformerMixin):
     """Constructed Decision Tree Classifier based on segmentation"""
@@ -359,3 +360,6 @@ class FixedBusinessDecisionTreeClassifier(BaseEstimator, TransformerMixin):
             X.drop(columns = self.node_name, inplace = True)
 
         return X
+    
+def gini_score(df, target, feature):
+    return (2 * roc_auc_score(df[target], df[feature]) - 1) * 100

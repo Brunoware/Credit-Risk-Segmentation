@@ -8,6 +8,7 @@ services:
     volumes:
       - ./datasets:/app/datasets
       - ./libs:/app/libs
+      - ./constants:/app/constants
     env_file:
       - ./.env_file
     ports:
