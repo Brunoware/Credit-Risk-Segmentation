@@ -362,7 +362,9 @@ class FixedBusinessDecisionTreeClassifier(BaseEstimator, TransformerMixin):
         return X
     
 def gini_score(df, target, feature):
-    return (2 * roc_auc_score(df[target], df[feature]) - 1) * 100
+    if df[target].nunique() == 2:
+        return (2 * roc_auc_score(df[target], df[feature]) - 1) * 100
+    return 0
 
 class PassthroughTransformer(BaseEstimator, TransformerMixin):
     def fit(self, X, y = None):
