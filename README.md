@@ -14,8 +14,11 @@ Make sure you have the following installed on your local machine:
 First, clone this repository to your local machine:
 ```bash
 git clone https://github.com/yourusername/credit-risk-project.git
-cd credit-risk-project
+```
 
+```bash
+cd credit-risk-project
+```
 ### 2. Create Environment File
 Ensure you have a `.env_file` with the necessary environment variables in the root directory of the project.
 
@@ -25,7 +28,7 @@ Build and start the Docker container using Docker Compose:
 
 ```bash
 docker-compose up --build
-
+```
 
 ### 4. Access the Jupyter Notebook
 
