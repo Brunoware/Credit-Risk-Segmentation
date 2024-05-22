@@ -34,3 +34,6 @@ docker-compose up --build
 
 Once the container is up and running, you can access the Jupyter Notebook server by navigating to:
 
+```bash
+http://127.0.0.1:8888/tree?token=your_token
+```
